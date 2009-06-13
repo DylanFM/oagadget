@@ -25,6 +25,10 @@
             postcode = prefs.getString("postcode"),
             content;
 
+			  var showPostcode = function() {
+			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
+			  };
+
         if (postcode) {
           // If there isn't a postcode set, provide a way to set it
           $(app).append("<p>You need to set your postcode.</p>");
@@ -42,10 +46,6 @@
           // If there is a postcode set, use the Open Australia API to get their rep
           showPostcode();
         }
-			  
-			  var showPostcode = function() {
-			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
-			  };
 			  
 			})(jQuery);
 		</script>
