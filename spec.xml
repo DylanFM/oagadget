@@ -29,7 +29,7 @@
 			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
 			  };
 
-        if (postcode) {
+        if (!postcode || postcode === '') {
           // If there isn't a postcode set, provide a way to set it
           $(app).append("<p>You need to set your postcode.</p>");
           $(app).append("<input type=\"text\" name=\"postcode\" size=\"6\" />");
