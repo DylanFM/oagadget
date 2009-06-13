@@ -28,7 +28,7 @@
               return false;
             }
             // Show a line of info for the user
-            $("#prefs").append("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Change</a>");
+            $("#prefs").text("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Change</a>");
             $(".show-pref-form").click(addSetPrefForm);
           };
 
