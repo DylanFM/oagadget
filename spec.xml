@@ -28,20 +28,31 @@
         console.log(postcode);
 
 			  var showPostcode = function() {
-			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
+			    $(app).append("<p>Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
+			    $("#show-pref-form").click(addSetPrefForm);
+			  };
+			  
+			  var addSetPrefForm = function() {
+			    $(app).append("<div id=\"set-pref-form\"><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
+          $("#hide-set-pref-form").click(hideSetPrefForm);;
+			  };
+			  
+			  var hidesetPrefForm = function() {
+			    $("#set-pref-form").remove();
+          return false;
 			  };
 
         if (!postcode || postcode === '') {
           // If there isn't a postcode set, provide a way to set it
           $(app).append("<p>You need to set your postcode.</p>");
-          $(app).append("<input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" />");
-          $(app).append("<input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" />");
+          addSetPrefForm();
           // Add save functionality to button
           $("#save").click(function(event) {
             // Save the postcode
             postcode = $("#postcode").val();
             prefs.set("postcode", postcode);
             showPostcode();
+            hideSetPrefForm();
             return false;
           });
         } else {
