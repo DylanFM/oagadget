@@ -19,37 +19,37 @@
 		<script type="text/javascript" charset="utf-8">
 			(function($) {
 
-			  var showPostcode = function() {
-          // Remove existing message(s)
-			    $("p.message").remove();
-          // Add new message
-			    $(app).append("<p class=\"message\">Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
-          // Add show form functionality to link
-			    $("#show-pref-form").click(addSetPrefForm);
-			  };
-			  
-			  var addSetPrefForm = function() {
-			    $(app).append("<div id=\"set-pref-form\"><p>Set your postcode:</p><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
-          // Close link
-          $("#hide-set-pref-form").click(hideSetPrefForm);;
-          // Add save functionality to button
-          $("#save").click(function(event) {
-            // Save the postcode
-            postcode = $("#postcode").val();
-            prefs.set("postcode", postcode);
-            showPostcode();
-            hideSetPrefForm();
-            return false;
-          });
-			  };
-			  
-			  var hideSetPrefForm = function() {
-			    $("#set-pref-form").remove();
-          return false;
-			  };
-			  
 			  $(document).ready(function() {
-			   
+
+			    var showPostcode = function() {
+            // Remove existing message(s)
+  			    $("p.message").remove();
+            // Add new message
+  			    $(app).append("<p class=\"message\">Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
+            // Add show form functionality to link
+  			    $("#show-pref-form").click(addSetPrefForm);
+  			  };
+
+  			  var addSetPrefForm = function() {
+  			    $(app).append("<div id=\"set-pref-form\"><p>Set your postcode:</p><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
+            // Close link
+            $("#hide-set-pref-form").click(hideSetPrefForm);;
+            // Add save functionality to button
+            $("#save").click(function(event) {
+              // Save the postcode
+              postcode = $("#postcode").val();
+              prefs.set("postcode", postcode);
+              showPostcode();
+              hideSetPrefForm();
+              return false;
+            });
+  			  };
+
+  			  var hideSetPrefForm = function() {
+  			    $("#set-pref-form").remove();
+            return false;
+  			  };
+
 			    // Application code
           var prefs = new gadgets.Prefs(),
               app = $("#app"),
