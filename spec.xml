@@ -33,7 +33,7 @@
 			  };
 			  
 			  var addSetPrefForm = function() {
-			    $(app).append("<div id=\"set-pref-form\"><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
+			    $(app).append("<div id=\"set-pref-form\"><p>Set your postcode:</p><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
           $("#hide-set-pref-form").click(hideSetPrefForm);;
 			  };
 			  
@@ -44,7 +44,6 @@
 
         if (!postcode || postcode === '') {
           // If there isn't a postcode set, provide a way to set it
-          $(app).append("<p>You need to set your postcode.</p>");
           addSetPrefForm();
           // Add save functionality to button
           $("#save").click(function(event) {
