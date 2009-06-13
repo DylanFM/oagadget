@@ -10,16 +10,18 @@
     <div id="app">
       <p id="greeting"></p>
     </div>
-		<script type="text/javascript">
-		  var prefs = new gadgets.Prefs(),
-		      postcode = prefs.getString("postcode"),
-		      greeting = document.getElementById("greeting");
-		  if (postcode) {
-		    greeting.innerHTML = "You're from " + postcode;
-		  } else {
-		    greeting.innerHTML = "Please set your postcode!";
-		  }
-		</script>
+    <script type="text/javascript" src="http://www.google.com/jsapi" charset="utf-8"></script>
+    <script type="text/javascript">
+      // Load jQuery
+      google.load("jquery", "1.3.2");
+
+      // Application code
+      var prefs = new gadgets.Prefs(),
+          postcode = prefs.getString("postcode");
+
+      $("#greeting").text("Hey what's up");
+
+    </script>
     ]]>
   </Content>
 </Module>
