@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Hello World!">
+  <ModulePrefs title="Open Australia">
     <Require feature="opensocial-0.8" />
   </ModulePrefs>
+  <UserPref name="postcode" display_name="Postcode" required="true" />
   <Content type="html" view="nav">
     <![CDATA[
-    Hello, world!
+    <p id="greeting">Hi</p>
+		<script type="text/javascript">
+		  var prefs = new gadgets.Prefs(),
+		      postcode = prefs.getString("postcode"),
+		      greeting = document.getElementById("greeting");
+		  if (postcode) {
+		    greeting.innerHTML = "You're from " + postcode;
+		  } else {
+		    greeting.innerHTML = "Please set your postcode!";
+		  }
+		</script>
     ]]>
   </Content>
 </Module>
