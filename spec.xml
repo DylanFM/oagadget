@@ -24,11 +24,12 @@
 			  $(document).ready(function() {
 
           var showPrefs = function() {
-            if (!postcode || postcode === '') {
-              return false;
-            }
             // Show a line of info for the user
-            $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Change</a>");
+            if (!postcode || postcode === '') {
+              $("#prefs").html("<a href=\"#\" class=\"show-pref-form\" title=\"\">Set postcode</a>");
+            } else {
+              $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Change</a>");
+            }
             $(".show-pref-form").click(addSetPrefForm);
           };
 
