@@ -8,7 +8,7 @@
   <Content type="html" view="nav">
     <![CDATA[
     <div id="app">
-      
+      <p id="greeting"></p>
     </div>
 		<script type="text/javascript">
 		  var prefs = new gadgets.Prefs(),
