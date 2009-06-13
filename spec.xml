@@ -42,7 +42,7 @@
   			  };
 
 			    var showRepresentative = function() {
-			      var url = "http://www.openaustralia.org/api/getRepresentatives?output=js";
+			      var url = "http://www.openaustralia.org/api/getRepresentatives?output=js&key=" + key;
 			      if (!postcode || postcode === '') {
               // We need a postcode for this
 			        return false;
@@ -51,9 +51,6 @@
             url += "&postcode=" + postcode;
             // Call the Open Australia API to get the representative for the postcode
             gadgets.io.makeRequest(url, function(data) {
-              
-              console.log(data);
-              
               addRepresentative(gadgets.json.parse(data)[0]);
             });
             return true;
@@ -80,7 +77,8 @@
           var prefs = new gadgets.Prefs(),
               app = $("#app"),
               postcode = prefs.getString("postcode"),
-              content;
+              content,
+              key = "Dyx3pGEa5rtRGKL6LXGCgPWr";
               
           if (!postcode || postcode === '') {
             // If there isn't a postcode set, provide a way to set it
