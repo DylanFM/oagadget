@@ -2,11 +2,14 @@
 <Module>
   <ModulePrefs title="Open Australia">
     <Require feature="opensocial-0.8" />
+    <Require feature="setprefs" />
   </ModulePrefs>
   <UserPref name="postcode" display_name="Postcode" required="true" />
   <Content type="html" view="nav">
     <![CDATA[
-    <p id="greeting">Hi</p>
+    <div id="app">
+      
+    </div>
 		<script type="text/javascript">
 		  var prefs = new gadgets.Prefs(),
 		      postcode = prefs.getString("postcode"),
