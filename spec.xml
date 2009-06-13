@@ -18,14 +18,6 @@
     </script>
 		<script type="text/javascript" charset="utf-8">
 			(function($) {
-			  
-			  // Application code
-        var prefs = new gadgets.Prefs(),
-            app = $("#app"),
-            postcode = prefs.getString("postcode"),
-            content;
-
-        console.log(postcode);
 
 			  var showPostcode = function() {
           // Remove existing message(s)
@@ -55,14 +47,24 @@
 			    $("#set-pref-form").remove();
           return false;
 			  };
-
-        if (!postcode || postcode === '') {
-          // If there isn't a postcode set, provide a way to set it
-          addSetPrefForm();
-        } else {
-          // If there is a postcode set, use the Open Australia API to get their rep
-          showPostcode();
-        }
+			  
+			  $(document).ready(function() {
+			   
+			    // Application code
+          var prefs = new gadgets.Prefs(),
+              app = $("#app"),
+              postcode = prefs.getString("postcode"),
+              content;
+              
+          if (!postcode || postcode === '') {
+            // If there isn't a postcode set, provide a way to set it
+            addSetPrefForm();
+          } else {
+            // If there is a postcode set, use the Open Australia API to get their rep
+            showPostcode();
+          }
+			   
+			  });
 			  
 			})(jQuery);
 		</script>
