@@ -41,6 +41,7 @@
               // Save the postcode
               postcode = $("#postcode").val();
               prefs.set("postcode", postcode);
+              showPrefs();
               showRepresentative();
               hideSetPrefForm();
               return false;
