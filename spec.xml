@@ -28,7 +28,11 @@
         console.log(postcode);
 
 			  var showPostcode = function() {
-			    $(app).append("<p>Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
+          // Remove existing message(s)
+			    $("p.message").remove();
+          // Add new message
+			    $(app).append("<p class=\"message\">Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
+          // Add show form functionality to link
 			    $("#show-pref-form").click(addSetPrefForm);
 			  };
 			  
