@@ -51,12 +51,13 @@
             url += "&postcode=" + postcode;
             // Call the Open Australia API to get the representative for the postcode
             gadgets.io.makeRequest(url, function(data) {
-              addRepresentative(gadgets.json.parse(data)[0]);
+              console.log(data);
+              addRepresentativeInfo(gadgets.json.parse(data)[0]);
             });
             return true;
 			    };
 			    
-			    var addRepresentative = function(rep) {
+			    var addRepresentativeInfo = function(rep) {
 			      
 			      console.log(rep);
 			      
