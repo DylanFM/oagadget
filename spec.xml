@@ -9,7 +9,7 @@
     <![CDATA[
 
     <div id="app">
-      <p id="greeting"></p>
+    
     </div>
 
     <script type="text/javascript" src="http://www.google.com/jsapi" charset="utf-8"></script>
@@ -21,9 +21,31 @@
 			  
 			  // Application code
         var prefs = new gadgets.Prefs(),
-            postcode = prefs.getString("postcode");
+            app = $("#app"),
+            postcode = prefs.getString("postcode"),
+            content;
 
-        $("#greeting").text("Hey what's up");
+        if (postcode) {
+          // If there isn't a postcode set, provide a way to set it
+          $(app).append("<p>You need to set your postcode.</p>");
+          $(app).append("<input type=\"text\" name=\"postcode\" size=\"6\" />");
+          $(app).append("<input type=\"submit\" name=\"submit\" id=\"save\" />");
+          // Add save functionality to button
+          $("#save").click(function(event) {
+            // Save the postcode
+            postcode = $(this).val();
+            prefs.set("postcode", postcode);
+            showPostcode();
+            return false;
+          });
+        } else {
+          // If there is a postcode set, use the Open Australia API to get their rep
+          showPostode();
+        }
+			  
+			  var showPostode = function() {
+			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
+			  };
 			  
 			})(jQuery);
 		</script>
