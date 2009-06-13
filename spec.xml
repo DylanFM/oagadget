@@ -34,7 +34,7 @@
           };
 
   			  var addSetPrefForm = function() {
-  			    if ($("#set-pref-form")) {
+  			    if ($("#set-pref-form") || $("#set-pref-form").length > 0) {
   			      return false;
   			    }
   			    $(app).append("<div id=\"set-pref-form\"><p>Set your postcode:</p><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
