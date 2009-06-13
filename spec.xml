@@ -37,7 +37,7 @@
           $("#hide-set-pref-form").click(hideSetPrefForm);;
 			  };
 			  
-			  var hidesetPrefForm = function() {
+			  var hideSetPrefForm = function() {
 			    $("#set-pref-form").remove();
           return false;
 			  };
