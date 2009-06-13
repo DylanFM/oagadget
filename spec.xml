@@ -21,15 +21,6 @@
 
 			  $(document).ready(function() {
 
-			    var showPostcode = function() {
-            // Remove existing message(s)
-  			    $("p.message").remove();
-            // Add new message
-  			    $(app).append("<p class=\"message\">Your postcode is " + postcode + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Change</a></p>");
-            // Add show form functionality to link
-  			    $("#show-pref-form").click(addSetPrefForm);
-  			  };
-
   			  var addSetPrefForm = function() {
   			    $(app).append("<div id=\"set-pref-form\"><p>Set your postcode:</p><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"6\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
             // Close link
@@ -39,7 +30,7 @@
               // Save the postcode
               postcode = $("#postcode").val();
               prefs.set("postcode", postcode);
-              showPostcode();
+              showRepresentative();
               hideSetPrefForm();
               return false;
             });
@@ -50,6 +41,35 @@
             return false;
   			  };
 
+			    var showRepresentative = function() {
+			      var url = "http://www.openaustralia.org/api/getRepresentatives?output=js";
+			      if (!postcode || postcode === '') {
+              // We need a postcode for this
+			        return false;
+			      }
+            // Append postcode to url
+            url += "&postcode=" + postcode;
+            // Call the Open Australia API to get the representative for the postcode
+            gadgets.io.makeRequest(url, function(data) {
+              addRepresentative(gadgets.json.parse(data)[0]);
+            });
+            return true;
+			    };
+			    
+			    var addRepresentative = function(rep) {
+			      var name;
+			      if (rep) {
+			        name = rep.first_name + " " + rep.last_name;
+			        // Remove existing message(s)
+    			    $("p.message").remove();
+              // Add new message
+    			    $(app).append("<p class=\"message\">The representative for " + postcode + " is " + name + ". <a href=\"#\" title=\"Change preferences\" id=\"show-pref-form\">Edit</a></p>");
+              // Add show form functionality to link
+    			    $("#show-pref-form").click(addSetPrefForm);
+			      }
+			      return false;
+			    };
+			    
 			    // Application code
           var prefs = new gadgets.Prefs(),
               app = $("#app"),
@@ -61,7 +81,7 @@
             addSetPrefForm();
           } else {
             // If there is a postcode set, use the Open Australia API to get their rep
-            showPostcode();
+            showRepresentative();
           }
 			   
 			  });
