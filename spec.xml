@@ -40,10 +40,10 @@
           });
         } else {
           // If there is a postcode set, use the Open Australia API to get their rep
-          showPostode();
+          showPostcode();
         }
 			  
-			  var showPostode = function() {
+			  var showPostcode = function() {
 			    $(app).append("<p>Your postcode is " + postcode + ".</p>");
 			  };
 			  
