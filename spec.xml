@@ -93,17 +93,16 @@
 			    };
 			    
 			    var addRepresentativeDebates = function(person_id) {
-			      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" +key,
+			      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" + key,
 			          response,
 			          debates;
 			      if (!person_id) {
 			        return false;
 			      }
-			      url += "person=" + person_id;
+			      url += "&person=" + person_id;
             // Call the OA API for the debates data
             gadgets.io.makeRequest(url, function(data) {
               response = gadgets.json.parse(data.data);
-              console.log(response);
               if (response && response.rows && response.rows.length > 0) {
                 // Lets get the latest 4 debates and turn them into html elements
                 debates = $.map(response.rows.slice(0,3), function() {
