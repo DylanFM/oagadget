@@ -18,9 +18,10 @@
       #set-pref-form {background-color:#cdcebc}
     </style>
 
+    <div id="prefs"></div>
     <div id="app">
     
-      <div id="prefs"></div>
+      
     
     </div>
 
