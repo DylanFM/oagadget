@@ -90,7 +90,7 @@
 			        // Remove existing representative
     			    $("#representative").remove();
               // Add new message
-    			    $(app).append("<div id=\"representative\"><h4>" + name + "</h4><h5>Recent debates</h5></div>");
+    			    $(app).append("<div id=\"representative\"><h4>" + name + "</h4><h5>Latest</h5></div>");
               // Get the debate info and add it too
               addRepresentativeDebates(rep.person_id);
               return true;
@@ -127,7 +127,11 @@
 			    
 			    var debateElementFor = function(debate) {
             // Takes a debate object from the rows array in the getDebates API response
-            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + debate.parent.body + "</a></li>";
+            var topic = debate.parent.body;
+            if (topic.indexOf(":") > 0) {
+             topic = topic.split(":", 2)[1];
+            }
+            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + topic + "</a></li>";
 			    };
 			    
 			    // Application code
