@@ -103,12 +103,10 @@
             // Call the OA API for the debates data
             gadgets.io.makeRequest(url, function(data) {
               response = gadgets.json.parse(data.data);
-              console.log(response);
               if (response && response.rows && response.rows.length > 0) {
                 // Lets get the latest 4 debates and turn them into html elements
-                debates = $.map(response.rows.slice(0,3), function() {
-                  console.log(this);
-                  return debateElementFor(this);
+                debates = $.map(response.rows.slice(0,3), function(i, debate) {
+                  return debateElementFor(debate);
                 });
                 $(app).append("<ul class=\"debates\">" + debates.join("") + "</ul>");
                 return true;
