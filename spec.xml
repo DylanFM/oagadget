@@ -84,9 +84,40 @@
 			        // Remove existing message(s)
     			    $("p.message").remove();
               // Add new message
-    			    $(app).append("<p class=\"message\">Your representative is " + name + ".</p>");
+    			    $(app).append("<h4 class=\"representative\">" + name + ".</h4><h5>Recent debates</h5>");
+              // Get the debate info and add it too
+              addRepresentativeDebates(rep.person_id);
+              return true;
 			      }
 			      return false;
+			    };
+			    
+			    var addRepresentativeDebates = function(person_id) {
+			      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" +key,
+			          debates;
+			      if (!person_id) {
+			        return false;
+			      }
+			      url += "person=" + person_id;
+            // Call the OA API for the debates data
+            gadgets.io.makeRequest(url, function(data) {
+              data = gadgets.json.parse(data.text);
+              if (data && data.rows && data.rows.length > 0) {
+                // Lets get the latest 4 debates and turn them into html elements
+                debates = $.map(data.rows.slice(0,3), function() {
+                  return debateElementFor(this);
+                });
+                $(app).append("<ul class=\"debates\">" + debates.join("") + "</ul>");
+                return true;
+              } else {
+                return false;
+              }
+            });
+			    };
+			    
+			    var debateElementFor = function(debate) {
+            // Takes a debate object from the rows array in the getDebates API response
+            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + debate.hdate + "</a></li>";
 			    };
 			    
 			    // Application code
