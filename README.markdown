@@ -17,10 +17,16 @@ These are taken from the [Open Social page for the Gmail container](http://wiki.
 > 3. Now you'll have a 'Gadgets' tab under Settings.
 > 4. Enter the URL of an OpenSocial gadget spec and click 'Add'.
 
-The URL for this gadget's spec is the most recent version of the file "spec.xml" above. To get a URL which can be used for the gadget installation:
+### Not&ndash;so&ndash;edge version
+
+For a more stable version of the gadget, use this spec: [http://dylanfm.github.com/oagadget/spec.xml](http://dylanfm.github.com/oagadget/spec.xml).
+
+### Edge version
+
+A more unstable version of this gadget's spec is the most recent version of the file "spec.xml" above. To get a URL which can be used for the gadget installation:
 
 1. Click "spec.xml" above.
 2. Towards the right at the top of the spec's contents there should be a link to "raw".
 3. Copy the "raw" link's target and use that as the URL to the spec.
 
-This isn't a user friendly process&mdash;the spec needs to be moved to somewhere else. For now though, this is handy for development. There are lots of things to change in the gadget, and Gmail caches the specs for 1 hour. The URL for the spec changes whenever changes are made, so the caching isn't an issue and development is swifter than it could be.
+This is handy for development. Gmail caches the specs for 1 hour. The URL for the edge spec changes whenever changes are made, so the caching isn't an issue and development is swifter than it could be. You can also use any version of the gadget you want this way too.
