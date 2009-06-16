@@ -13,6 +13,9 @@
       #prefs {background-color:#ebeccf}
       
       #representative h4, #representative h5 {margin:0}
+      #representative h4 {color:#b82e00}
+      
+      #set-pref-form {background-color:#cdcebc}
     </style>
 
     <div id="app">
@@ -35,7 +38,7 @@
             if (!postcode || postcode === '') {
               $("#prefs").html("<a href=\"#\" class=\"show-pref-form\" title=\"\">Set postcode</a>");
             } else {
-              $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Change</a>");
+              $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Edit</a>");
             }
             $(".show-pref-form").click(addSetPrefForm);
           };
@@ -44,7 +47,7 @@
   			    if ($("#set-pref-form").length > 0) {
   			      return false;
   			    }
-  			    $(app).append("<div id=\"set-pref-form\"><label for=\"postcode\">Postcode</label><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"5\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
+  			    $(app).prepend("<div id=\"set-pref-form\"><label for=\"postcode\">Postcode</label><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"5\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
             // Close link
             $("#hide-set-pref-form").click(hideSetPrefForm);;
             // Add save functionality to button
