@@ -72,7 +72,7 @@
             url += "&postcode=" + postcode;
             // Call the Open Australia API to get the representative for the postcode
             gadgets.io.makeRequest(url, function(data) {
-              addRepresentativeInfo(gadgets.json.parse(data.text)[0]);
+              addRepresentativeInfo(gadgets.json.parse(data.data)[0]);
             });
             return true;
 			    };
@@ -94,6 +94,7 @@
 			    
 			    var addRepresentativeDebates = function(person_id) {
 			      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" +key,
+			          response,
 			          debates;
 			      if (!person_id) {
 			        return false;
@@ -101,10 +102,11 @@
 			      url += "person=" + person_id;
             // Call the OA API for the debates data
             gadgets.io.makeRequest(url, function(data) {
-              data = gadgets.json.parse(data.text);
-              if (data && data.rows && data.rows.length > 0) {
+              response = gadgets.json.parse(data.data);
+              console.log(response);
+              if (response && response.rows && response.rows.length > 0) {
                 // Lets get the latest 4 debates and turn them into html elements
-                debates = $.map(data.rows.slice(0,3), function() {
+                debates = $.map(response.rows.slice(0,3), function() {
                   return debateElementFor(this);
                 });
                 $(app).append("<ul class=\"debates\">" + debates.join("") + "</ul>");
