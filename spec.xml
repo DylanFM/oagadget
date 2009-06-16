@@ -115,7 +115,7 @@
                   return debateElementFor(debate);
                 });
                 // Add debates
-                $(app).find("#representative").append("<ul class=\"debates\">" + debates.join("") + "</ul>");
+                $(app).find("#representative").append("<ul class=\"debates small\">" + debates.join("") + "</ul>");
                 // Open links in new window
                 $(app).find("ul.debates a").attr("target","_blank");
                 return true;
