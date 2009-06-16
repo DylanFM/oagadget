@@ -106,10 +106,12 @@
               if (response && response.rows && response.rows.length > 0) {
                 // Lets get the latest 4 debates and turn them into html elements
                 debates = $.map(response.rows.slice(0,3), function(debate) {
-                  console.log(debate);
                   return debateElementFor(debate);
                 });
+                // Add debates
                 $(app).append("<ul class=\"debates\">" + debates.join("") + "</ul>");
+                // Open links in new window
+                $(app).find("ul.debates a").attr("target","_blank");
                 return true;
               } else {
                 return false;
