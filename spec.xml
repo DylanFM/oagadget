@@ -105,7 +105,7 @@
               response = gadgets.json.parse(data.data);
               if (response && response.rows && response.rows.length > 0) {
                 // Lets get the latest 4 debates and turn them into html elements
-                debates = $.map(response.rows.slice(0,3), function(i, debate) {
+                debates = $.map(response.rows.slice(0,3), function(debate) {
                   console.log(debate);
                   return debateElementFor(debate);
                 });
