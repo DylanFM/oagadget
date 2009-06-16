@@ -121,7 +121,7 @@
 			    
 			    var debateElementFor = function(debate) {
             // Takes a debate object from the rows array in the getDebates API response
-            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + debate.hdate + "</a></li>";
+            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + debate.parent.body + "</a></li>";
 			    };
 			    
 			    // Application code
