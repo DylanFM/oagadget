@@ -90,6 +90,9 @@
   		    };
 
   		    var addRepresentativeInfo = function(rep) {
+  		      
+  		      console.log(rep);
+  		      
   		      var name;
   		      if (rep) {
   		        name = rep.first_name + " " + rep.last_name;
@@ -116,6 +119,9 @@
             gadgets.io.makeRequest(url, function(data) {
               response = gadgets.json.parse(data.data);
               if (response && response.rows && response.rows.length > 0) {
+                
+                console.log(response);
+                
                 // Lets get the latest 4 debates and turn them into html elements
                 debates = $.map(response.rows.slice(0,3), function(debate) {
                   return debateElementFor(debate);
