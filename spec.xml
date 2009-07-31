@@ -31,109 +31,108 @@
     </script>
 		<script type="text/javascript" charset="utf-8">
 			(function($) {
+			  
+			  var showPrefs = function() {
+          // Show a line of info for the user
+          if (!postcode || postcode === '') {
+            $("#prefs").html("<a href=\"#\" class=\"show-pref-form\" title=\"\">Set postcode</a>");
+          } else {
+            $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Edit</a>");
+          }
+          $(".show-pref-form").click(addSetPrefForm);
+        };
 
-			  $(document).ready(function() {
-
-          var showPrefs = function() {
-            // Show a line of info for the user
-            if (!postcode || postcode === '') {
-              $("#prefs").html("<a href=\"#\" class=\"show-pref-form\" title=\"\">Set postcode</a>");
-            } else {
-              $("#prefs").html("Your postcode: " + postcode + " <a href=\"#\" class=\"show-pref-form\" title=\"\">Edit</a>");
-            }
-            $(".show-pref-form").click(addSetPrefForm);
-          };
-
-  			  var addSetPrefForm = function() {
-  			    if ($("#set-pref-form").length > 0) {
-  			      return false;
-  			    }
-  			    $(app).prepend("<div id=\"set-pref-form\"><label for=\"postcode\">Postcode</label><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"5\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
-            // Close link
-            $("#hide-set-pref-form").click(hideSetPrefForm);;
-            // Add save functionality to button
-            $("#save").click(function(event) {
-              // Save the postcode
-              postcode = $("#postcode").val();
-              prefs.set("postcode", postcode);
-              showPrefs();
-              showRepresentative();
-              hideSetPrefForm();
-              return false;
-            });
-  			  };
-
-  			  var hideSetPrefForm = function() {
-  			    $("#set-pref-form").remove();
-            return false;
-  			  };
-
-			    var showRepresentative = function() {
-			      var url = "http://www.openaustralia.org/api/getRepresentatives?output=js&key=" + key;
-			      if (!postcode || postcode === '') {
-              // We need a postcode for this
-			        return false;
-			      }
-            // Append postcode to url
-            url += "&postcode=" + postcode;
-            // Call the Open Australia API to get the representative for the postcode
-            gadgets.io.makeRequest(url, function(data) {
-              addRepresentativeInfo(gadgets.json.parse(data.data)[0]);
-            });
-            return true;
-			    };
-			    
-			    var addRepresentativeInfo = function(rep) {
-			      var name;
-			      if (rep) {
-			        name = rep.first_name + " " + rep.last_name;
-			        // Remove existing representative
-    			    $("#representative").remove();
-              // Add new message
-    			    $(app).append("<div id=\"representative\"><h4>" + name + "</h4><h5>Latest</h5></div>");
-              // Get the debate info and add it too
-              addRepresentativeDebates(rep.person_id);
-              return true;
-			      }
+			  var addSetPrefForm = function() {
+			    if ($("#set-pref-form").length > 0) {
 			      return false;
-			    };
-			    
-			    var addRepresentativeDebates = function(person_id) {
-			      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" + key,
-			          response,
-			          debates;
-			      if (!person_id) {
-			        return false;
-			      }
-			      url += "&person=" + person_id;
-            // Call the OA API for the debates data
-            gadgets.io.makeRequest(url, function(data) {
-              response = gadgets.json.parse(data.data);
-              if (response && response.rows && response.rows.length > 0) {
-                // Lets get the latest 4 debates and turn them into html elements
-                debates = $.map(response.rows.slice(0,3), function(debate) {
-                  return debateElementFor(debate);
-                });
-                // Add debates
-                $(app).find("#representative").append("<ul class=\"debates small\">" + debates.join("") + "</ul>");
-                // Open links in new window
-                $(app).find("ul.debates a").attr("target","_blank");
-                return true;
-              } else {
-                return false;
-              }
-            });
-			    };
-			    
-			    var debateElementFor = function(debate) {
-            // Takes a debate object from the rows array in the getDebates API response
-            var topic = debate.parent.body;
-            if (topic.indexOf(":") > 0) {
-             topic = topic.split(":", 2)[1];
+			    }
+			    $(app).prepend("<div id=\"set-pref-form\"><label for=\"postcode\">Postcode</label><input type=\"text\" name=\"postcode\" id=\"postcode\" size=\"5\" /><input type=\"submit\" name=\"submit\" value=\"Save\" id=\"save\" /><a href=\"#\" title=\"Close the form\" id=\"hide-set-pref-form\">[x]</a></div>");
+          // Close link
+          $("#hide-set-pref-form").click(hideSetPrefForm);;
+          // Add save functionality to button
+          $("#save").click(function(event) {
+            // Save the postcode
+            postcode = $("#postcode").val();
+            prefs.set("postcode", postcode);
+            showPrefs();
+            showRepresentative();
+            hideSetPrefForm();
+            return false;
+          });
+			  };
+
+			  var hideSetPrefForm = function() {
+			    $("#set-pref-form").remove();
+          return false;
+			  };
+
+		    var showRepresentative = function() {
+		      var url = "http://www.openaustralia.org/api/getRepresentatives?output=js&key=" + key;
+		      if (!postcode || postcode === '') {
+            // We need a postcode for this
+		        return false;
+		      }
+          // Append postcode to url
+          url += "&postcode=" + postcode;
+          // Call the Open Australia API to get the representative for the postcode
+          gadgets.io.makeRequest(url, function(data) {
+            addRepresentativeInfo(gadgets.json.parse(data.data)[0]);
+          });
+          return true;
+		    };
+		    
+		    var addRepresentativeInfo = function(rep) {
+		      var name;
+		      if (rep) {
+		        name = rep.first_name + " " + rep.last_name;
+		        // Remove existing representative
+  			    $("#representative").remove();
+            // Add new message
+  			    $(app).append("<div id=\"representative\"><h4>" + name + "</h4><h5>Latest</h5></div>");
+            // Get the debate info and add it too
+            addRepresentativeDebates(rep.person_id);
+            return true;
+		      }
+		      return false;
+		    };
+		    
+		    var addRepresentativeDebates = function(person_id) {
+		      var url = "http://www.openaustralia.org/api/getDebates?type=representatives&order=d&output=js&key=" + key,
+		          response,
+		          debates;
+		      if (!person_id) {
+		        return false;
+		      }
+		      url += "&person=" + person_id;
+          // Call the OA API for the debates data
+          gadgets.io.makeRequest(url, function(data) {
+            response = gadgets.json.parse(data.data);
+            if (response && response.rows && response.rows.length > 0) {
+              // Lets get the latest 4 debates and turn them into html elements
+              debates = $.map(response.rows.slice(0,3), function(debate) {
+                return debateElementFor(debate);
+              });
+              // Add debates
+              $(app).find("#representative").append("<ul class=\"debates small\">" + debates.join("") + "</ul>");
+              // Open links in new window
+              $(app).find("ul.debates a").attr("target","_blank");
+              return true;
+            } else {
+              return false;
             }
-            return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + topic + "</a></li>";
-			    };
-			    
+          });
+		    };
+		    
+		    var debateElementFor = function(debate) {
+          // Takes a debate object from the rows array in the getDebates API response
+          var topic = debate.parent.body;
+          if (topic.indexOf(":") > 0) {
+           topic = topic.split(":", 2)[1];
+          }
+          return "<li><a href=\"http://www.openaustralia.org" + debate.listurl + "\" title=\"View the page for the debate on " + debate.hdate + "\">" + topic + "</a></li>";
+		    };
+			  
+			  var initOpenAustralia = function() {
 			    // Application code
           var prefs = new gadgets.Prefs(),
               app = $("#app"),
@@ -143,13 +142,20 @@
               
           showPrefs();
               
-          if (postcode || postcode === '') {
+          if (!postcode || postcode === '') {
             // If there isn't a postcode set, provide a way to set it
             addSetPrefForm();
           } else {
             // If there is a postcode set, use the Open Australia API to get their rep
             showRepresentative();
           }
+			  };
+
+        // Execute on dom load
+			  $(document).ready(function() {
+
+          // Start it up
+          initOpenAustralia();
 			   
 			  });
 			  
